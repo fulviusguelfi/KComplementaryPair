@@ -22,17 +22,17 @@ public class KComplementaryPair {
     public static void main(String[] args) {
         if (args.length == 2 && args[0].contains(",")) {
             /**
-             * You should be use:
+             * You should use like:
              * System.out.println(new KComplementaryPair(
              *      Arrays.stream(args[0].split(Pattern.quote(","))).mapToInt(item -> Integer.parseInt(item.trim())).toArray(),
              *      Integer.parseInt(args[1])).process());
              * 
              */
-            int theArr[] = Arrays.stream(args[0].split(Pattern.quote(","))).mapToInt(item -> Integer.parseInt(item.trim())).toArray();// para efeito didático
-            int theInt = Integer.parseInt(args[1]);// para efeito didático
-            KComplementaryPair theKComplementaryPair = new KComplementaryPair(theArr, theInt);// para efeito didático
+            int theArr[] = Arrays.stream(args[0].split(Pattern.quote(","))).mapToInt(item -> Integer.parseInt(item.trim())).toArray();
+            int theInt = Integer.parseInt(args[1]);
+            KComplementaryPair theKComplementaryPair = new KComplementaryPair(theArr, theInt);
             System.out.print("The number of K-Complementary Pairs are ");
-            System.out.println(theKComplementaryPair.process());// para efeito didátic
+            System.out.println(theKComplementaryPair.process());
         }
     }
 
