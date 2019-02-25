@@ -3,7 +3,9 @@ package kcomplementarypair;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
@@ -14,25 +16,20 @@ public class KComplementaryPair {
 
     private int theArray[] = {};
     private final int theNumber;
-    private int theNumberOfPairs;
+    private Map thePairs;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         if (args.length == 2 && args[0].contains(",")) {
-            /**
-             * You should use like:
-             * System.out.println(new KComplementaryPair(
-             *      Arrays.stream(args[0].split(Pattern.quote(","))).mapToInt(item -> Integer.parseInt(item.trim())).toArray(),
-             *      Integer.parseInt(args[1])).process());
-             * 
-             */
-            int theArr[] = Arrays.stream(args[0].split(Pattern.quote(","))).mapToInt(item -> Integer.parseInt(item.trim())).toArray();
-            int theInt = Integer.parseInt(args[1]);
-            KComplementaryPair theKComplementaryPair = new KComplementaryPair(theArr, theInt);
-            System.out.print("The number of K-Complementary Pairs are ");
-            System.out.println(theKComplementaryPair.process());
+            int[] argArray = Arrays.stream(args[0].split(Pattern.quote(","))).mapToInt(item -> Integer.parseInt(item.trim())).toArray();
+            System.out.print("For: ");
+            System.out.println(args[0]);
+            System.out.print("The K-Complementary Pairs are ");
+            System.out.println(new KComplementaryPair(argArray, Integer.parseInt(args[1])).process());
+            System.out.println("Complexity Big-O = O(n) ");
+            System.out.println("");
         }
     }
 
@@ -54,9 +51,9 @@ public class KComplementaryPair {
      *
      * @return theNumberOfPairs
      */
-    public int process() {
-        this.theNumberOfPairs = this.noOfComplementaryPairs(this.theArray, this.theNumber);
-        return this.theNumberOfPairs;
+    public Map process() {
+        this.thePairs = this.getKComplementaryPairs(this.theArray, this.theNumber);
+        return this.thePairs;
     }
 
     /**
@@ -77,10 +74,10 @@ public class KComplementaryPair {
      * @param k sum to check in arr
      * @return the quantity of itens that sum k in provided arr
      */
-    private int noOfComplementaryPairs(int arr[], int k) {
+    private Map<Integer, Integer> getKComplementaryPairs(int arr[], int k) {
         Map<Integer, Integer> map = new HashMap<>();
         IntStream.of(arr).forEach(value -> map.merge(k - value, 1, Integer::sum)); //1st passs
-        return Arrays.stream(arr).map(element -> map.getOrDefault(element, 0)).sum(); //2nd pass
+        return Arrays.stream(arr).filter((element) -> map.containsKey(element)) //2nd pass
+                .collect(HashMap<Integer, Integer>::new, (mapIndex, element) -> mapIndex.put(element, k - element), Map::putAll);//to show
     }
-
 }
