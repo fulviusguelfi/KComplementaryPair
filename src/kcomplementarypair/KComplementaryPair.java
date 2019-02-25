@@ -3,13 +3,12 @@ package kcomplementarypair;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- *
+ * KComplementaryPair was specifically maded for a job test
+ * 
  * @author Fulvius
  */
 public class KComplementaryPair {
@@ -19,6 +18,14 @@ public class KComplementaryPair {
     private Map thePairs;
 
     /**
+     * arr is a integer array.
+     * number is the sum to be chcked agais arr.
+     * Usage:
+     * Comnadline: java KComplementaryPair arr number
+     * (output goes to console)
+     * Object: 
+     * List l = new KComplementaryPair(arr, number).process();
+     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -49,7 +56,7 @@ public class KComplementaryPair {
      * Sets theNumberOfPairs with the quantity of itens that sum this.theNumber
      * in this.theArray
      *
-     * @return theNumberOfPairs
+     * @return thePairs printed in console
      */
     public Map process() {
         this.thePairs = this.getKComplementaryPairs(this.theArray, this.theNumber);
@@ -57,7 +64,7 @@ public class KComplementaryPair {
     }
 
     /**
-     * O(n) complexity
+     * Big-O = O(n)
      *
      * Go through the array once, and store in a Map the difference of the
      * wanted sum and the current element mapped to how many times it occured.
